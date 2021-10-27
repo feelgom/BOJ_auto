@@ -11,8 +11,11 @@ with open("2839.py", 'r') as f:
     code = f.read()
 
 with requests.Session() as sess:
-    sess.post(boj_url+'signin',data=LOGIN_INFO)
-
+    login_req = sess.post(boj_url+'signin',data=LOGIN_INFO)
+    # if login_req.status_code != 200:
+    #     raise Exception('로그인이 되지 않았어요! 아이디와 비밀번호를 다시한번 확인해 주세요.')
+    # else:
+    #     print("로그인 성공")
     soup = bs(sess.get(boj_url).text, 'html.parser')
     if soup.find('a', {'class': 'username'}) is None:
         print("invalid login info")
